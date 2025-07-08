@@ -1,6 +1,7 @@
 <div class="superheroes-edit__wrapper">
-    <h1>New superhero</h1>
+    <h1>{{isNew() ? 'New' : 'Edit'}} superhero</h1>
     <div class="superheroes-form__wrapper">
+        @if(!isLoading()) {
         <form [formGroup]="superheroForm" (ngSubmit)="onSubmit()" (reset)="onReset()" class="superheroes-form">
             <mat-form-field>
                 <mat-label>Name</mat-label>
@@ -26,7 +27,7 @@
             <mat-form-field>
                 <mat-label>Powers</mat-label>
                 <mat-chip-grid #chipGrid aria-label="Power selection">
-                    @for (power of formPowers; track $index) {
+                    @for (power of currentSuperheroPowers(); track $index) {
                     <mat-chip-row (removed)="removePower(power)">
                         {{power}}
                         <button matChipRemove [attr.aria-label]="'remove ' + power">
@@ -59,10 +60,17 @@
                 }
             </mat-form-field>
             <div class="superheroes-form__actions">
-                <button type="submit" matButton="filled">Save</button>
+                <button type="submit" matButton="filled">
+                    {{isNew() ? 'Save' : 'Update'}}
+                </button>
                 <button type="button" matButton="outlined" (click)="onReset()">Reset</button>
                 <button type="button" matButton="outlined" (click)="onCancel()">Cancel</button>
             </div>
         </form>
+        } @else {
+        <div class="loading-overlay">
+            <mat-spinner></mat-spinner>
+        </div>
+        }
     </div>
 </div>

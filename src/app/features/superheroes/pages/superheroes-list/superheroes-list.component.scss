@@ -16,9 +16,20 @@
     border-radius: 0.5rem;
     &__cell {
         padding: 0.5rem;
+        &-no-data{
+            text-align: center;
+            padding: 20px;
+        }
     }
     &__actions{
         display: flex;
         gap: 0.5rem;
+    }
+    &__wrapper{
+        .loading-overlay{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
     }
 }

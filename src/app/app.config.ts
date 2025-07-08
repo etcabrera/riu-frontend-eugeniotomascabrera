@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withRouterConfig } from '@angular/router';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 import { routes } from './app.routes';
@@ -7,6 +7,7 @@ import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material/chips';
 import { COMMA, SPACE } from '@angular/cdk/keycodes';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { CustomErrorStateMatcher } from './core/validators/custom-error-state-matcher';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +24,10 @@ export const appConfig: ApplicationConfig = {
         separatorKeyCodes: [COMMA, SPACE]
       }
     },
-    {provide: ErrorStateMatcher, useClass: CustomErrorStateMatcher}
+    {provide: ErrorStateMatcher, useClass: CustomErrorStateMatcher},
+    provideRouter(routes, withComponentInputBinding(), withRouterConfig({
+      paramsInheritanceStrategy: 'always'
+    })),
+    provideHttpClient(withInterceptorsFromDi())
   ]
 };
