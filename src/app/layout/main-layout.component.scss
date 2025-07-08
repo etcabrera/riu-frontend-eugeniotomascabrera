@@ -1,0 +1,10 @@
+.main-layout {
+    display: flex;
+    justify-content: center;
+    min-height: 100dvh;
+
+    &__content {
+        width: 80dvw;
+        padding-block: 2rem
+    }
+}

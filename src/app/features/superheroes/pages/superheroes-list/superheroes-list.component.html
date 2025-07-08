@@ -1,0 +1,42 @@
+<div class="superheroes-list__wrapper">
+    <h1>Superhero list! 🦸</h1>
+    <div class="superheroes-list__actions">
+        <button matButton="tonal" (click)="addSuperhero()">Add new superhero</button>
+    </div>
+    <div class="superheroes-table__wrapper">
+        <table mat-table [dataSource]="dataSource" class="superheroes-table">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let superhero" class="superheroes-table__cell"> {{superhero.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="powers">
+                <th mat-header-cell *matHeaderCellDef> Powers </th>
+                <td mat-cell *matCellDef="let superhero" class="superheroes-table__cell"> {{superhero.powers | joinArray: ', '}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="universe">
+                <th mat-header-cell *matHeaderCellDef> Universe </th>
+                <td mat-cell *matCellDef="let superhero" class="superheroes-table__cell"> {{superhero.universe}} </td>
+            </ng-container>
+            <ng-container matColumnDef="biography">
+                <th mat-header-cell *matHeaderCellDef> Biography </th>
+                <td mat-cell *matCellDef="let superhero" class="superheroes-table__cell"> {{superhero.biography}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let superhero" class="superheroes-table__cell ">
+                    <div class="superheroes-table__actions">
+                        <button matButton="outlined" class="superheroes-table__action" (click)="viewSuperhero(superhero.id)">View</button>
+                        <button matButton="outlined" class="superheroes-table__action" (click)="editSuperhero(superhero.id)">Edit</button>
+                        <button matButton="outlined" color="warn" class="superheroes-table__action" (click)="deleteSuperhero(superhero.id)">Delete</button>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+        </mat-paginator>
+    </div>
+</div>
