@@ -1,0 +1,68 @@
+<div class="superheroes-edit__wrapper">
+    <h1>New superhero</h1>
+    <div class="superheroes-form__wrapper">
+        <form [formGroup]="superheroForm" (ngSubmit)="onSubmit()" (reset)="onReset()" class="superheroes-form">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name" formControlName="name">
+                @if (superheroForm.controls.name.hasError('required')) {
+                <mat-error>Name is required.</mat-error>
+                }
+                @if (superheroForm.controls.name.hasError('minlength')) {
+                <mat-error>Name must be at least 3 characters long.</mat-error>
+                }
+                @if (superheroForm.controls.name.hasError('repeatedName')) {
+                <mat-error>This superhero name already exists.</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Universe</mat-label>
+                <mat-select formControlName="universe">
+                    <mat-option value="DC Comics">DC Comics</mat-option>
+                    <mat-option value="Marvel">Marvel</mat-option>
+                    <mat-option value="Other">Other</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Powers</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Power selection">
+                    @for (power of formPowers; track $index) {
+                    <mat-chip-row (removed)="removePower(power)">
+                        {{power}}
+                        <button matChipRemove [attr.aria-label]="'remove ' + power">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                    }
+                </mat-chip-grid>
+                <input name="powers" placeholder="New Power..." matInput #powerInput [formControl]="currentPowerCtrl"
+                    [matChipInputFor]="chipGrid" [matAutocomplete]="auto" (matChipInputTokenEnd)="addPower($event)" />
+                <mat-autocomplete #auto="matAutocomplete"
+                    (optionSelected)="selectedPower($event); powerInput.value = ''">
+                    @for (power of filteredPowers(); track power) {
+                    <mat-option [value]="power">{{power}}</mat-option>
+                    }
+                </mat-autocomplete>
+
+                @if (superheroForm.controls.powers.hasError('required')) {
+                <mat-error>At least one power is required.</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Biography</mat-label>
+                <textarea matInput formControlName="biography"></textarea>
+                @if (superheroForm.controls.biography.hasError('required')) {
+                <mat-error>Biography is required.</mat-error>
+                }
+                @if (superheroForm.controls.biography.hasError('minlength')) {
+                <mat-error>Biography must be at least 40 characters long.</mat-error>
+                }
+            </mat-form-field>
+            <div class="superheroes-form__actions">
+                <button type="submit" matButton="filled">Save</button>
+                <button type="button" matButton="outlined" (click)="onReset()">Reset</button>
+                <button type="button" matButton="outlined" (click)="onCancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
