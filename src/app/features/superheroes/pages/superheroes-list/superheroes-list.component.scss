@@ -1,32 +1,42 @@
-.superheroes-list{
+.superheroes-list {
     &__wrapper {
         padding: 1rem;
         border-radius: 0.5rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
-    }   
+    }
+
     &__actions {
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
         align-items: center;
     }
 }
-.superheroes-table{
+
+.superheroes-table {
     border-radius: 0.5rem;
+
     &__cell {
         padding: 0.5rem;
-        &-no-data{
+
+        &-no-data {
             text-align: center;
             padding: 20px;
         }
     }
-    &__actions{
+
+    &__actions {
         display: flex;
         gap: 0.5rem;
     }
-    &__wrapper{
-        .loading-overlay{
+
+    &__wrapper {
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background: var(--mat-sys-surface);
+
+        .loading-overlay {
             width: 100%;
             display: flex;
             justify-content: center;

@@ -5,7 +5,7 @@
         <form [formGroup]="superheroForm" (ngSubmit)="onSubmit()" (reset)="onReset()" class="superheroes-form">
             <mat-form-field>
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Name" formControlName="name">
+                <input uppercaseText matInput placeholder="Name" formControlName="name">
                 @if (superheroForm.controls.name.hasError('required')) {
                 <mat-error>Name is required.</mat-error>
                 }

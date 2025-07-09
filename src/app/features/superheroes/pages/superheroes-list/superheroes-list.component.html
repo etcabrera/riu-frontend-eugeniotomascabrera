@@ -1,6 +1,16 @@
 <div class="superheroes-list__wrapper">
     <h1>Superhero list! 🦸</h1>
     <div class="superheroes-list__actions">
+        <mat-form-field>
+            <mat-label>Superhero search</mat-label>
+            <input matInput type="text" [(ngModel)]="tableSearchValue" (ngModelChange)="onSearch()">
+            @if (tableSearchValue()) {
+            <button matSuffix matIconButton aria-label="Clear" (click)="tableSearchValue.set(''); onSearch();">
+                <mat-icon>close</mat-icon>
+            </button>
+            }
+        </mat-form-field>
+
         <button matButton="tonal" (click)="addSuperhero()">Add new superhero</button>
     </div>
     <div class="superheroes-table__wrapper">
@@ -50,7 +60,7 @@
             </tr>
             }
         </table>
-        <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        <mat-paginator [length]="dataSource.data.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
         </mat-paginator>
         }
     </div>

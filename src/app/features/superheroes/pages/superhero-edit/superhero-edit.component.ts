@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UppercaseTextDirective } from '../../../../core/directives/uppercaseText.directive';
 
 @Component({
   selector: 'app-superheroes-edit',
@@ -27,7 +28,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    UppercaseTextDirective
   ],
   templateUrl: './superhero-edit.component.html',
   styleUrl: './superhero-edit.component.scss'

@@ -9,8 +9,7 @@ import { delay, Observable, of, tap, throwError } from 'rxjs';
 export class SuperheroService {
     private http = inject(HttpClient);
     private _superheroes = signal<Superhero[]>(MOCK_SUPERHEROES);
-    readonly superheroes = this._superheroes.asReadonly();
-    getSuperheroes = computed(() => this._superheroes());
+    superheroes = computed(() => this._superheroes());
 
     isNameRepeated(name: string, currentSuperheroId?: number): boolean {
         const lowerCaseName = name.toLowerCase();
