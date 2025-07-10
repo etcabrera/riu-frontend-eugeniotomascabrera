@@ -70,7 +70,7 @@ export class SuperheroService {
             );
         }
         return of(undefined).pipe(
-            delay(1000),
+            delay(500),
             tap(() => {
                 const initialLength = currentSuperheroes.length;
                 const updatedSuperheroes = currentSuperheroes.filter(s => s.id !== id);
@@ -78,7 +78,7 @@ export class SuperheroService {
                 if (updatedSuperheroes.length < initialLength) {
                     this._superheroes.set(updatedSuperheroes);
                 } else {
-                    throw new Error(`Superhero with id ${id} not found.`);
+                    throw new Error(`Failed to delete superhero with id ${id}.`);
                 }
             })
         );

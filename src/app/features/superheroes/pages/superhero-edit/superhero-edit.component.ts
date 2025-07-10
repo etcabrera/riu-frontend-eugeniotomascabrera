@@ -151,8 +151,17 @@ export class SuperheroEditComponent implements OnInit {
   }
 
   onReset() {
-    this.superheroForm.reset();
+    this.superheroForm.reset({
+      name: '',
+      powers: [],
+      universe: 'Other',
+      biography: '',
+      id: 0
+    });
     this.superheroForm.get('powers')?.setValue([]);
+    this.currentSuperheroPowers.set([]);
+    this.currentPower.set('');
+    this.currentPowerCtrl.setValue('');
   }
 
   onCancel() {

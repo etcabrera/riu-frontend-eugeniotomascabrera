@@ -1,20 +1,22 @@
+import { AfterViewInit, Component, computed, effect, inject, OnInit, signal, viewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AfterViewInit, Component, computed, effect, inject, OnInit, signal, viewChild, WritableSignal } from '@angular/core';
-import { SuperheroService } from '../../../../core/services/superhero.service';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { JoinArrayPipe } from "../../../../core/pipes/join-array-pipe";
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { Superhero } from '../../../../core/models/superhero.model';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { DeleteConfirmDialogComponent } from '../../components/delete-confirm-dialog/delete-confirm-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { finalize } from 'rxjs';
+
+import { SuperheroService } from '../../../../core/services/superhero.service';
+import { JoinArrayPipe } from "../../../../core/pipes/join-array-pipe";
+import { Superhero } from '../../../../core/models/superhero.model';
+import { DeleteConfirmDialogComponent } from '../../components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-superheroes-list',
@@ -30,7 +32,7 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     FormsModule,
     MatInputModule
-],
+  ],
   templateUrl: './superheroes-list.component.html',
   styleUrl: './superheroes-list.component.scss'
 })
@@ -40,7 +42,7 @@ export class SuperheroesListComponent implements AfterViewInit, OnInit {
   private _snackBar = inject(MatSnackBar);
   private _superheroeService = inject(SuperheroService);
   private _router = inject(Router)
-  
+
   superheroes = computed(() => this._superheroeService.superheroes())
   dataSource = new MatTableDataSource<Superhero>([])
 
@@ -59,7 +61,7 @@ export class SuperheroesListComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource.filterPredicate = function(data, filter: string): boolean {
+    this.dataSource.filterPredicate = function (data, filter: string): boolean {
       return data.name.toLowerCase().includes(filter);
     };
   }
@@ -91,25 +93,27 @@ export class SuperheroesListComponent implements AfterViewInit, OnInit {
 
   deleteSuperhero(id: number) {
     this.isLoading.set(true);
-
-    this._superheroeService.deleteSuperhero(id).subscribe({
-      next: () => {
-        this._snackBar.open('✅ Superhero deleted successfully', '', { duration: 5000});
-      },
-      error: err => {
-        this._snackBar.open('❌ Error deleting superhero', 'Close', { duration: 5000});
-      },
-      complete: () => {
-        this.isLoading.set(false);
-      }
-    });
+    this._superheroeService.deleteSuperhero(id)
+      .pipe(
+        finalize(() =>  {
+          this.isLoading.set(false);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this._snackBar.open('✅ Superhero deleted successfully', '', { duration: 5000 });
+        },
+        error: err => {
+          this._snackBar.open('❌ Error deleting superhero', 'Close', { duration: 5000 });
+        }
+      });
   }
 
   addSuperhero() {
     this._router.navigate(['/superheroes', 'new']);
   }
 
-  onSearch(){ 
+  onSearch() {
     const searchedValue = this.tableSearchValue()
     this.dataSource.filter = searchedValue.trim().toLowerCase();
   }

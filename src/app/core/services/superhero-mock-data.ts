@@ -6,7 +6,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Spider-Man',
         universe: 'Marvel',
         powers: ['Wall-crawling', 'Super strength', 'Spider-sense'],
-        image: 'https://example.com/spiderman.jpg',
         biography: 'Peter Parker got spider powers from a bite. He fights crime in New York.'
     },
     {
@@ -14,7 +13,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Superman',
         universe: 'DC Comics',
         powers: ['Flight', 'Super strength', 'Heat vision'],
-        image: 'https://example.com/superman.jpg',
         biography: 'He came from Krypton as a baby. He grew up on Earth and uses his powers to help people.'
     },
     {
@@ -22,7 +20,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Wonder Woman',
         universe: 'DC Comics',
         powers: ['Super strength', 'Flight', 'Combat skills'],
-        image: 'https://example.com/wonderwoman.jpg',
         biography: 'Diana is an Amazon princess. She came to the human world to bring peace.'
     },
     {
@@ -30,7 +27,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Batman',
         universe: 'DC Comics',
         powers: ['High intellect', 'Detective skills', 'Martial arts'],
-        image: 'https://example.com/batman.jpg',
         biography: 'Bruce Wayne fights crime as Batman after his parents were killed. He uses his mind and gadgets.'
     },
     {
@@ -38,7 +34,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Captain America',
         universe: 'Marvel',
         powers: ['Peak human strength', 'Tactical genius', 'Shield mastery'],
-        image: 'https://example.com/captainamerica.jpg',
         biography: 'Steve Rogers became a super-soldier. He leads heroes with his shield and strong will.'
     },
     {
@@ -46,7 +41,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Iron Man',
         universe: 'Marvel',
         powers: ['Genius intellect', 'Powered armor', 'Flight'],
-        image: 'https://example.com/ironman.jpg',
         biography: 'Tony Stark builds advanced suits to protect the world. He is a genius inventor.'
     },
     {
@@ -54,7 +48,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'The Flash',
         universe: 'DC Comics',
         powers: ['Super speed', 'Phasing', 'Rapid healing'],
-        image: 'https://example.com/theflash.jpg',
         biography: 'Barry Allen gained super speed in an accident. He uses it to save Central City.'
     },
     {
@@ -62,7 +55,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Black Widow',
         universe: 'Marvel',
         powers: ['Master spy', 'Expert combatant', 'Acrobatics'],
-        image: 'https://example.com/blackwidow.jpg',
         biography: 'Natasha Romanoff is a highly trained spy. She uses her skills to fight evil.'
     },
     {
@@ -70,7 +62,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Aquaman',
         universe: 'DC Comics',
         powers: ['Underwater breathing', 'Super strength', 'Telepathy with marine life'],
-        image: 'https://example.com/aquaman.jpg',
         biography: 'Arthur Curry is king of Atlantis. He protects the oceans and the surface world.'
     },
     {
@@ -78,7 +69,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Thor',
         universe: 'Marvel',
         powers: ['Godly strength', 'Control over lightning', 'Flight with Mjolnir'],
-        image: 'https://example.com/thor.jpg',
         biography: 'Thor is the Norse god of thunder. He defends Earth and Asgard with his hammer.'
     },
     {
@@ -86,7 +76,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Green Lantern',
         universe: 'DC Comics',
         powers: ['Energy constructs', 'Flight', 'Force fields'],
-        image: 'https://example.com/greenlantern.jpg',
         biography: 'Hal Jordan wears a power ring. He is part of an intergalactic police force.'
     },
     {
@@ -94,7 +83,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Hulk',
         universe: 'Marvel',
         powers: ['Immense strength', 'Invulnerability', 'Regeneration'],
-        image: 'https://example.com/hulk.jpg',
         biography: 'Bruce Banner turns into a giant green monster when angry. He is incredibly strong.'
     },
     {
@@ -102,7 +90,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Cyborg',
         universe: 'DC Comics',
         powers: ['Technopathy', 'Super strength', 'Weapon systems'],
-        image: 'https://example.com/cyborg.jpg',
         biography: 'Victor Stone is part human, part machine. He uses his tech to fight crime.'
     },
     {
@@ -110,7 +97,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Doctor Strange',
         universe: 'Marvel',
         powers: ['Magic spells', 'Astral projection', 'Teleportation'],
-        image: 'https://example.com/drstrange.jpg',
         biography: 'Stephen Strange was a surgeon. He became a master of mystic arts to protect reality.'
     },
     {
@@ -118,7 +104,6 @@ export const MOCK_SUPERHEROES: Superhero[] = [
         name: 'Nightwing',
         universe: 'DC Comics',
         powers: ['Acrobatics', 'Combat mastery', 'Detective skills'],
-        image: 'https://example.com/nightwing.jpg',
         biography: 'Dick Grayson was Batman\'s first Robin. He now protects Blüdhaven on his own.'
     }
 ];

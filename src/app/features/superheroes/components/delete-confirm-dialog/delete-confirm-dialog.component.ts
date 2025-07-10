@@ -15,7 +15,7 @@ export interface DialogData {
       <p>Are you sure to delete {{data.name}}?</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button [mat-dialog-close]="true">Delete</button>
+      <button mat-button [mat-dialog-close]="true" class="delete-button">Delete</button>
       <button mat-button mat-dialog-close>Cancel</button>
     </mat-dialog-actions>
   `,
