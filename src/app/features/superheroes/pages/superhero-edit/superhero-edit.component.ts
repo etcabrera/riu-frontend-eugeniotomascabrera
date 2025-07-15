@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, effect, inject, input, model, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, input, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,8 +12,8 @@ import { repeatedNameValidator } from '../../../../core/validators/repeated-name
 import { Superhero } from '../../../../core/models/superhero.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { delay } from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { debounceTime, delay, distinctUntilChanged, startWith } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UppercaseTextDirective } from '../../../../core/directives/uppercaseText.directive';
 
@@ -42,18 +42,23 @@ export class SuperheroEditComponent implements OnInit {
   private _router = inject(Router);
   private _snackBar = inject(MatSnackBar);
   private _destroyRef = inject(DestroyRef);
-
-  readonly currentPower = model<string>('')
+  
+  readonly currentPower = signal<string>('')
   readonly allPowers = computed(() => this._superheroService.getPowers());
   readonly filteredPowers = computed(() => {
     const currentPowerValue = this.currentPower().toLowerCase();
     return currentPowerValue
-      ? this.allPowers().filter(power => power.toLowerCase().includes(currentPowerValue))
-      : this.allPowers().slice();
+    ? this.allPowers().filter(power => power.toLowerCase().includes(currentPowerValue))
+    : this.allPowers().slice();
   });
   readonly currentSuperheroPowers: WritableSignal<string[]> = signal([]);
-
+  
   currentPowerCtrl = new FormControl('');
+  private inputSearchSignal = toSignal(this.currentPowerCtrl.valueChanges.pipe(
+    startWith(this.currentPowerCtrl.value), // Asegura que el valor inicial se propague
+    debounceTime(300),
+    distinctUntilChanged()
+  ));
   superheroForm = new FormGroup({
     name: new FormControl('', { validators: [Validators.required, Validators.minLength(3)] }),
     powers: new FormControl<string[]>([], { validators: [Validators.required] }),
@@ -64,7 +69,7 @@ export class SuperheroEditComponent implements OnInit {
 
   constructor() {
     effect(() => {
-      const value = this.currentPowerCtrl.value;
+      const value = this.inputSearchSignal();
       this.currentPower.set(value || '');
     });
 

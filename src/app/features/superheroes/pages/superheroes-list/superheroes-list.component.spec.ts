@@ -132,7 +132,7 @@ describe('SuperheroesListComponent', () => {
             const searchInput = await loader.getHarness(MatInputHarness.with({ selector: 'input[matInput]' }));
             await searchInput.setValue('Superman');
 
-            let table = await loader.getHarness(MatTableHarness);
+            const table = await loader.getHarness(MatTableHarness);
             let rows = await table.getRows();
             expect(rows.length).toBe(1);
 

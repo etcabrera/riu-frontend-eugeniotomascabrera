@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -12,8 +12,6 @@ import { RouterModule } from '@angular/router';
     styleUrl: './main-layout.component.scss'
 })
 
-export class MainLayoutComponent implements OnInit {
-    constructor() { }
+export class MainLayoutComponent {
 
-    ngOnInit() { }
 }
