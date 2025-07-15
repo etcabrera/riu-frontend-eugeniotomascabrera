@@ -109,7 +109,7 @@ export class SuperheroEditComponent implements OnInit {
               this._router.navigate(['/superheroes']);
             },
             complete: () => {
-              this.isLoading.set(false); // <--- Desactiva el spinner al completar (éxito o error)
+              this.isLoading.set(false);
             }
           });
       } else {

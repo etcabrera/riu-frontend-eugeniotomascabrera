@@ -1,13 +1,11 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 import { Superhero } from '../models/superhero.model';
 import { MOCK_SUPERHEROES } from './superhero-mock-data';
-import { HttpClient } from '@angular/common/http';
 import { delay, Observable, of, tap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SuperheroService {
-    private http = inject(HttpClient);
     private _superheroes = signal<Superhero[]>(MOCK_SUPERHEROES);
     superheroes = computed(() => this._superheroes());
 
@@ -49,7 +47,7 @@ export class SuperheroService {
             ...superhero,
             id: this.getHighestId() + 1,
         };
-        this._superheroes.update((oldSuperheroes) => [...oldSuperheroes, newSuperhero]);
+        this._superheroes.update( oldSuperheroes => [...oldSuperheroes, newSuperhero]);
     }
 
     updateSuperhero(superhero: Superhero) {
@@ -74,7 +72,7 @@ export class SuperheroService {
             tap(() => {
                 const initialLength = currentSuperheroes.length;
                 const updatedSuperheroes = currentSuperheroes.filter(s => s.id !== id);
-
+                
                 if (updatedSuperheroes.length < initialLength) {
                     this._superheroes.set(updatedSuperheroes);
                 } else {

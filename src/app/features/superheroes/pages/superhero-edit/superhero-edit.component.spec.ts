@@ -19,7 +19,6 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatInputHarness } from "@angular/material/input/testing";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatButtonHarness } from "@angular/material/button/testing";
-import { MatChipListboxHarness } from "@angular/material/chips/testing";
 
 describe('Superhero edit component', () => {
     let component: SuperheroEditComponent;

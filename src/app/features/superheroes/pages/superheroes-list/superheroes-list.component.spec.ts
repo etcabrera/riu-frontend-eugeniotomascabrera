@@ -3,7 +3,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { signal, WritableSignal } from '@angular/core';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { delay, Observable, Observer, of, Subject, throwError } from 'rxjs';
+import { delay, of, throwError } from 'rxjs';
 
 import { SuperheroesListComponent } from './superheroes-list.component';
 import { SuperheroService } from '../../../../core/services/superhero.service';
@@ -16,7 +16,6 @@ import { MatTableHarness } from '@angular/material/table/testing';
 import { MatPaginatorHarness } from '@angular/material/paginator/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { DeleteConfirmDialogComponent } from '../../components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 describe('SuperheroesListComponent', () => {
     let component: SuperheroesListComponent;

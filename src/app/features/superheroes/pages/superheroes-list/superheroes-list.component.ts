@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, effect, inject, OnInit, signal, viewChild } from '@angular/core';
+import { Component, effect, inject, OnInit, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -36,14 +36,14 @@ import { DeleteConfirmDialogComponent } from '../../components/delete-confirm-di
   templateUrl: './superheroes-list.component.html',
   styleUrl: './superheroes-list.component.scss'
 })
-export class SuperheroesListComponent implements AfterViewInit, OnInit {
-  private _paginator = viewChild.required<MatPaginator>(MatPaginator);
+export class SuperheroesListComponent implements OnInit {
+  private _paginator = viewChild<MatPaginator>(MatPaginator);
   private _dialog = inject(MatDialog);
   private _snackBar = inject(MatSnackBar);
-  private _superheroeService = inject(SuperheroService);
+  private _superheroService = inject(SuperheroService);
   private _router = inject(Router)
 
-  superheroes = computed(() => this._superheroeService.superheroes())
+  superheroes = this._superheroService.superheroes;
   dataSource = new MatTableDataSource<Superhero>([])
 
   displayedColumns: string[] = ['name', 'universe', 'biography', 'powers', 'actions'];
@@ -52,22 +52,27 @@ export class SuperheroesListComponent implements AfterViewInit, OnInit {
   tableSearchValue = signal('');
 
   constructor() {
+    // Simulate defer loading for data fetching.
+    this.isLoading.set(true);
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 1000);
+
     effect(() => {
       this.dataSource.data = this.superheroes();
-      if (this.dataSource.paginator) {
+      const paginator = this._paginator();
+      if (paginator) {
+        this.dataSource.paginator = paginator;
         this.dataSource.paginator.firstPage();
       }
     });
+
   }
 
   ngOnInit(): void {
     this.dataSource.filterPredicate = function (data, filter: string): boolean {
       return data.name.toLowerCase().includes(filter);
     };
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this._paginator();
   }
 
   viewSuperhero(id: number) {
@@ -93,9 +98,9 @@ export class SuperheroesListComponent implements AfterViewInit, OnInit {
 
   deleteSuperhero(id: number) {
     this.isLoading.set(true);
-    this._superheroeService.deleteSuperhero(id)
+    this._superheroService.deleteSuperhero(id)
       .pipe(
-        finalize(() =>  {
+        finalize(() => {
           this.isLoading.set(false);
         })
       )
