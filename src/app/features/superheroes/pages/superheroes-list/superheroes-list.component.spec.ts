@@ -78,12 +78,15 @@ describe('SuperheroesListComponent', () => {
 
     describe('Data Rendering and Initial State', () => {
         it('should display the correct number of rows in the table', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
             const table = await loader.getHarness(MatTableHarness);
             const rows = await table.getRows();
             expect(rows.length).toBe(5);
         });
 
         it('should display superhero data correctly in a row', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
+            
             const table = await loader.getHarness(MatTableHarness);
             const firstRow = (await table.getRows())[0];
             const cells = await firstRow.getCells();
@@ -94,6 +97,8 @@ describe('SuperheroesListComponent', () => {
         });
 
         it('should configure the paginator correctly', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
+
             const paginator = await loader.getHarness(MatPaginatorHarness);
             expect(await paginator.getPageSize()).toBe(5);
             expect(await paginator.getRangeLabel()).toBe(`1 – 5 of ${MOCK_SUPERHEROES.length}`);
@@ -108,6 +113,7 @@ describe('SuperheroesListComponent', () => {
         });
 
         it('should navigate to the edit page when an edit button is clicked', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
             const editButton = await loader.getHarness(MatButtonHarness.with({ selector: '.button-edit', text: 'Edit' }));
             await editButton.click();
 
@@ -117,6 +123,7 @@ describe('SuperheroesListComponent', () => {
 
     describe('Search and Filtering', () => {
         it('should filter the table when a search term is entered', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
             const searchInput = await loader.getHarness(MatInputHarness.with({ selector: 'input[matInput]' }));
             await searchInput.setValue('Superman');
 
@@ -129,6 +136,8 @@ describe('SuperheroesListComponent', () => {
         });
 
         it('should clear the filter when the clear button is clicked', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
+            
             const searchInput = await loader.getHarness(MatInputHarness.with({ selector: 'input[matInput]' }));
             await searchInput.setValue('Superman');
 
@@ -147,6 +156,7 @@ describe('SuperheroesListComponent', () => {
 
     describe('Deletion Flow', () => {
         it('should open a confirmation dialog when a delete button is clicked', async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
             mockMatDialog.open.and.returnValue({ afterClosed: () => of(true)} as any);
 
             const deleteButton = await loader.getHarness(MatButtonHarness.with({ selector: '.button-delete' }));
